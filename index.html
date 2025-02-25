@@ -546,70 +546,34 @@
 
             <form action="" class="contact__form" id="contact-form">
               <div class="contact__group">
-                <!--===========================================================================================-->
-
                 <div class="contact__box">
-                  <input
-                    type="text"
-                    name="user_name"
-                    class="contact__input"
-                    id="name"
-                    required
-                    placeholder="First Name"
-                  />
+                  <input type="text" name="user_name" class="contact__input" id="name" required placeholder="First Name" />
                   <label for="name" class="contact__label">First Name</label>
                 </div>
-                <!--==============================================================================-->
+            
                 <div class="contact__box">
-                  <input
-                    type="email"
-                    name="user_email"
-                    class="contact__input"
-                    id="email"
-                    required
-                    placeholder="Email Address"
-                  />
-                  <label for="email" class="contact__label"
-                    >Email Address</label
-                  >
+                  <input type="email" name="user_email" class="contact__input" id="email" required placeholder="Email Address" />
+                  <label for="email" class="contact__label">Email Address</label>
                 </div>
-
-                <!--===========================================================================================-->
               </div>
-
-              <!--===========================================================================================-->
-
+            
               <div class="contact__box">
-                <input
-                  type="text"
-                  name="user_subject"
-                  class="contact__input"
-                  id="subject"
-                  required
-                  placeholder="Subject"
-                />
+                <input type="text" name="user_subject" class="contact__input" id="subject" required placeholder="Subject" />
                 <label for="subject" class="contact__label">Subject</label>
               </div>
-              <!--==============================================================================-->
+            
               <div class="contact__box contact__area">
-                <textarea
-                  name="user_message"
-                  id="message"
-                  class="contact__input"
-                  required
-                  placeholder="Message"
-                ></textarea>
+                <textarea name="user_message" id="message" class="contact__input" required placeholder="Message"></textarea>
                 <label for="message" class="contact__label">Message</label>
               </div>
-
-              <!--===========================================================================================-->
-
+            
               <p class="contact__message" id="contact-message"></p>
-
+            
               <button type="submit" class="contact__button button">
                 <i class="ri-send-plane-line"></i> Send Message
               </button>
             </form>
+            
           </div>
 
           <div class="contact__social">
@@ -704,6 +668,60 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <!--=============== MAIN-JS ===============-->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script src="main.js"></script>
+    <script >
+      document.getElementById("contact-form").addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  // Get form data
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const subject = document.getElementById("subject").value;
+  const message = document.getElementById("message").value;
+
+  // Displaying a loading state while the email is sending (optional)
+  document.getElementById("contact-message").textContent = "Sending...";
+  document.getElementById("contact-message").style.color = "blue";
+
+  try {
+    // Using async/await to send email via Brevo's SMTP server
+    await Email.send({
+      host: "smtp-relay.brevo.com", 
+      port: 587, 
+      secure: false, 
+      auth: {
+        user:"86a3df001@smtp-brevo.com" , 
+        pass: "xsmtpsib-9f86694ccd99ee8cc1b5f11ad484ffdc31c8c8356a00952fb89684fa24800f4a" , 
+      },
+      To: 'aniruddhsharma8877@gmail.com', // Replace with recipient email
+      From: "aniruddhsharma8877@gmail.com", // The sender email (from the form)
+      Subject: subject,
+      Body: `
+        <h3>New Contact Form Submission</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong> ${message}</p>
+      `
+    });
+
+    // If the email is sent successfully
+    document.getElementById("contact-message").textContent = "Your message has been sent!";
+    document.getElementById("contact-message").style.color = "green";
+    document.getElementById("contact-form").reset(); // Clear the form after submission
+
+  } catch (error) {
+    // Handle errors
+    console.error("Error:", error);
+    document.getElementById("contact-message").textContent = "Failed to send the message. Please try again.";
+    document.getElementById("contact-message").style.color = "red";
+  }
+});
+
+
+
+
+    </script>
   </body>
 </html>

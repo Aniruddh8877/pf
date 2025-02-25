@@ -44,50 +44,6 @@ window.addEventListener('scroll', shadowHeader)
 /*=============== EMAIL JS ===============*/
 
 
-const contactForm = document.querySelector('#contact-form')
-const contactMessage = document.querySelector('#contact-message')
-
-const sendEmail = (e) => {
-  e.preventDefault()
-
-  // serviceID - templateID - #form - publickey
-  emailjs.sendForm('service_pf8g44v','template_muu5bv8456','#contact-form','pyLhy3u5GcvsDZFwt')
-  .then(() =>{
-    // Show sent message
-    contactMessage.textContent = 'Message sent successfully ✅'
-
-    // Remove message after 5 seconds
-    setTimeout(() => {
-      contactMessage.textContent = ''
-    }, 5000);
-
-    // Clear input fields
-    contactForm.reset()
-
-  }, () => {
-    // Show error message
-    contactMessage.textContent = 'Message not sent (service error) ❌'
-  })
-}
-
-contactForm.addEventListener('submit', sendEmail)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*=============== SHOW SCROLL UP ===============*/
 const scrollUp = () => {
   const scroll = document.querySelector('#scroll-up')
