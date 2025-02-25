@@ -42,6 +42,8 @@ window.addEventListener('scroll', shadowHeader)
 
 
 /*=============== EMAIL JS ===============*/
+
+
 const contactForm = document.querySelector('#contact-form')
 const contactMessage = document.querySelector('#contact-message')
 
@@ -69,6 +71,21 @@ const sendEmail = (e) => {
 }
 
 contactForm.addEventListener('submit', sendEmail)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*=============== SHOW SCROLL UP ===============*/
